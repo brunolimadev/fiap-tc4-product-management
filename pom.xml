@@ -12,11 +12,15 @@
 	<artifactId>product-management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>product-management</name>
-	<description>This specific functionality will allow the bulk import of product data, including descriptions, prices, and quantities in stock. The import can be scheduled or started manually, ensuring that the product catalog is up to date.</description>
+	<description>This specific functionality will allow the bulk import of product data, including descriptions, prices, and quantities in stock. The import can be scheduled or started manually, ensuring that the product catalog is up-to-date.</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-batch</artifactId>
@@ -30,7 +34,6 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

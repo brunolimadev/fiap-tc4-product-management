@@ -2,13 +2,20 @@ package br.com.fiap.productmanagement;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@AllArgsConstructor
+import java.time.LocalDateTime;
+
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 
   private String description;
-  private Double price;
-  private Integer storeQuantity;
+  private String price;
+  private String storeQuantity;
+  private LocalDateTime createDateTime;
 
 }

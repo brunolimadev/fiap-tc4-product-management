@@ -10,9 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("product")
 public class ProductController {
 
-  private final ProductService productService;
+  private final ProductSchedule productService;
 
-  public ProductController(ProductService productService) {
+  public ProductController(ProductSchedule productService) {
 
     this.productService = productService;
 
@@ -21,7 +21,8 @@ public class ProductController {
   @PostMapping("upload")
   public String upload(@RequestParam("file")MultipartFile file) throws Exception {
 
-    productService.uploadFile(file);
+//    productService.uploadFile(file);
+    productService.uploadFileCron();
 
     return "Processando arquivo...";
 

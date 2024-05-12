@@ -4,10 +4,10 @@ import org.springframework.batch.item.ItemProcessor;
 
 import java.time.LocalDateTime;
 
-public class ProductProcessor implements ItemProcessor<Product, Product> {
+public class ProductProcessorUseCase implements ItemProcessor<ProductEntity, ProductEntity> {
 
   @Override
-  public Product process(Product item) throws Exception {
+  public ProductEntity process(ProductEntity item) throws Exception {
 
     item.setPrice(item.getPrice().replace(",", "."));
     item.setCreateDateTime(LocalDateTime.now());

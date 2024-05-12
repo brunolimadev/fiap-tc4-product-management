@@ -6,25 +6,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("product")
 public class ProductController {
 
-  private final ProductSchedule productService;
+  private final SchedulingJobUseCase schedulingJobUseCase;
 
-  public ProductController(ProductSchedule productService) {
+  public ProductController(SchedulingJobUseCase schedulingJobUseCase) {
 
-    this.productService = productService;
+    this.schedulingJobUseCase = schedulingJobUseCase;
 
   }
 
-  @PostMapping("upload")
-  public String upload(@RequestParam("file")MultipartFile file) throws Exception {
+  @PostMapping()
+  public String process(
+          @RequestParam("file") MultipartFile file,
+          @RequestParam(required = false) LocalDateTime date) throws Exception {
 
-//    productService.uploadFile(file);
-    productService.uploadFileCron();
+    schedulingJobUseCase.start(file, date);
 
-    return "Processando arquivo...";
+    return "Produto processado com sucesso";
 
   }
 

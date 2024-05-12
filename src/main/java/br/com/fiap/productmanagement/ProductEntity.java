@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class ProductEntity {
 
   private String description;
   private String price;

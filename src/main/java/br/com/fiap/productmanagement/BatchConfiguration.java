@@ -58,13 +58,13 @@ public class BatchConfiguration {
   public Step step(
           JobRepository jobRepository,
           PlatformTransactionManager platformTransactionManager,
-          ItemReader<Product> itemReader,
-          ItemProcessor<Product, Product> itemProcessor,
-          ItemWriter<Product> itemWriter
+          ItemReader<ProductEntity> itemReader,
+          ItemProcessor<ProductEntity, ProductEntity> itemProcessor,
+          ItemWriter<ProductEntity> itemWriter
   ) {
 
     return new StepBuilder("step", jobRepository)
-            .<Product, Product>chunk(20, platformTransactionManager)
+            .<ProductEntity, ProductEntity>chunk(20, platformTransactionManager)
             .reader(itemReader)
             .processor(itemProcessor)
             .writer(itemWriter)
@@ -74,14 +74,14 @@ public class BatchConfiguration {
 
   @Bean
   @StepScope
-  public FlatFileItemReader<Product> itemReader(
+  public FlatFileItemReader<ProductEntity> itemReader(
           @Value("#{jobParameters['productFile']}") Resource resource
   ) {
 
-    BeanWrapperFieldSetMapper<Product> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
-    fieldSetMapper.setTargetType(Product.class);
+    BeanWrapperFieldSetMapper<ProductEntity> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
+    fieldSetMapper.setTargetType(ProductEntity.class);
 
-    return  new FlatFileItemReaderBuilder<Product>()
+    return  new FlatFileItemReaderBuilder<ProductEntity>()
             .name("itemReader")
             .resource(resource)
             .linesToSkip(1)
@@ -92,16 +92,16 @@ public class BatchConfiguration {
   }
 
   @Bean
-  public LineMapper<Product> lineMapper() {
+  public LineMapper<ProductEntity> lineMapper() {
 
-    BeanWrapperFieldSetMapper<Product> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
-    fieldSetMapper.setTargetType(Product.class);
+    BeanWrapperFieldSetMapper<ProductEntity> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
+    fieldSetMapper.setTargetType(ProductEntity.class);
 
     DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
     lineTokenizer.setDelimiter(";");
     lineTokenizer.setNames("description", "price", "storeQuantity");
 
-    DefaultLineMapper<Product> defaultLineMapper = new DefaultLineMapper<>();
+    DefaultLineMapper<ProductEntity> defaultLineMapper = new DefaultLineMapper<>();
     defaultLineMapper.setLineTokenizer(lineTokenizer);
     defaultLineMapper.setFieldSetMapper(fieldSetMapper);
 
@@ -109,9 +109,9 @@ public class BatchConfiguration {
   }
 
   @Bean
-  public ItemWriter<Product> itemWriter(DataSource dataSource) {
+  public ItemWriter<ProductEntity> itemWriter(DataSource dataSource) {
 
-    return  new JdbcBatchItemWriterBuilder<Product>()
+    return  new JdbcBatchItemWriterBuilder<ProductEntity>()
             .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
             .dataSource(dataSource)
             .sql("""
@@ -124,9 +124,9 @@ public class BatchConfiguration {
   }
 
   @Bean
-  public ItemProcessor<Product, Product> itemProcessor() {
+  public ItemProcessor<ProductEntity, ProductEntity> itemProcessor() {
 
-    return new ProductProcessor();
+    return new ProductProcessorUseCase();
 
   }
 

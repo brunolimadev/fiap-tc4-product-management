@@ -1,5 +1,7 @@
-package br.com.fiap.productmanagement;
+package br.com.fiap.productmanagement.domain.usecase;
 
+import br.com.fiap.productmanagement.ports.inputport.FileInputPort;
+import br.com.fiap.productmanagement.ports.outputport.JobOutputPort;
 import lombok.SneakyThrows;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.SimpleAsyncTaskScheduler;
@@ -12,21 +14,21 @@ import java.time.LocalDateTime;
 @Component
 public class SchedulingJobUseCase {
 
-  private final ManagementFileUseCase managementFileUseCase;
-  private final InitJobUseCase initJobUseCase;
+  private final FileInputPort fileInputPort;
+  private final JobOutputPort jobOutputPort;
 
   public SchedulingJobUseCase(
-          ManagementFileUseCase managementFileUseCase,
-          InitJobUseCase initJobUseCase) {
+          FileInputPort fileInputPort,
+          JobOutputPort jobOutputPort) {
 
-    this.managementFileUseCase = managementFileUseCase;
-    this.initJobUseCase = initJobUseCase;
+    this.fileInputPort = fileInputPort;
+    this.jobOutputPort = jobOutputPort;
 
   }
 
   public void start(MultipartFile file, LocalDateTime dateTime) throws Exception {
 
-    managementFileUseCase.upload(file);
+    fileInputPort.upload(file);
 
     PrepareDateTimeSchedulingUseCase prepareDateTimeSchedulingUseCase = new PrepareDateTimeSchedulingUseCase();
     prepareDateTimeSchedulingUseCase.setSchedulingDateTime(dateTime);
@@ -41,7 +43,7 @@ public class SchedulingJobUseCase {
 
         System.out.println("Executando");
 
-        initJobUseCase.run(file.getOriginalFilename(), managementFileUseCase.getTargetLocation(file));
+        jobOutputPort.run(file.getOriginalFilename(), fileInputPort.getTargetLocation(file));
 
       }
     }, trigger);

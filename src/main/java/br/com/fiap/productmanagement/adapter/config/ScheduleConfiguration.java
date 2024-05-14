@@ -1,5 +1,6 @@
-package br.com.fiap.productmanagement;
+package br.com.fiap.productmanagement.adapter.config;
 
+import br.com.fiap.productmanagement.domain.usecase.PrepareDateTimeSchedulingUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

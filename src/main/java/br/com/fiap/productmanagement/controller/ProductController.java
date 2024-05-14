@@ -1,5 +1,6 @@
-package br.com.fiap.productmanagement;
+package br.com.fiap.productmanagement.controller;
 
+import br.com.fiap.productmanagement.domain.usecase.SchedulingJobUseCase;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -1,4 +1,4 @@
-package br.com.fiap.productmanagement;
+package br.com.fiap.productmanagement.domain.usecase;
 
 import java.time.LocalDateTime;
 

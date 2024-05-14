@@ -1,5 +1,7 @@
-package br.com.fiap.productmanagement;
+package br.com.fiap.productmanagement.adapter.config;
 
+import br.com.fiap.productmanagement.domain.entities.ProductEntity;
+import br.com.fiap.productmanagement.domain.usecase.ProductProcessorUseCase;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepScope;

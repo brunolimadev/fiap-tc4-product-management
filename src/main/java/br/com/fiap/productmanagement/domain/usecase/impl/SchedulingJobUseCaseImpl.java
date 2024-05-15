@@ -1,7 +1,11 @@
 package br.com.fiap.productmanagement.domain.usecase.impl;
 
 import br.com.fiap.productmanagement.domain.entities.DateTimeSchedulingEntity;
+import br.com.fiap.productmanagement.domain.exception.EntityException;
+import br.com.fiap.productmanagement.domain.exception.UseCaseException;
 import br.com.fiap.productmanagement.domain.usecase.SchedulingJobUseCase;
+import br.com.fiap.productmanagement.ports.exception.InputPortException;
+import br.com.fiap.productmanagement.ports.exception.OutputPortException;
 import br.com.fiap.productmanagement.ports.inputport.FileInputPort;
 import br.com.fiap.productmanagement.ports.outputport.JobOutputPort;
 import lombok.SneakyThrows;
@@ -27,27 +31,39 @@ public class SchedulingJobUseCaseImpl implements SchedulingJobUseCase {
   }
 
   @Override
-  public void start(MultipartFile file, LocalDateTime dateTime) throws Exception {
+  public void start(MultipartFile file, LocalDateTime dateTime) throws UseCaseException {
 
-    fileInputPort.upload(file);
+    try {
 
-    DateTimeSchedulingEntity dateTimeSchedulingEntity = new DateTimeSchedulingEntity();
-    dateTimeSchedulingEntity.setSchedulingDateTime(dateTime);
+      fileInputPort.upload(file);
 
-    CronTrigger trigger = new CronTrigger(dateTimeSchedulingEntity.getSchedulingDatetimeFormatted());
-    TaskScheduler taskScheduler = new SimpleAsyncTaskScheduler();
+      DateTimeSchedulingEntity dateTimeSchedulingEntity = new DateTimeSchedulingEntity();
+      dateTimeSchedulingEntity.setSchedulingDateTime(dateTime);
 
-    taskScheduler.schedule(new Runnable() {
-      @SneakyThrows
-      @Override
-      public void run() {
+      CronTrigger trigger = new CronTrigger(dateTimeSchedulingEntity.getSchedulingDatetimeFormatted());
+      TaskScheduler taskScheduler = new SimpleAsyncTaskScheduler();
 
-        System.out.println("Executando");
+      taskScheduler.schedule(new Runnable() {
+        @SneakyThrows
+        @Override
+        public void run() {
 
-        jobOutputPort.run(file.getOriginalFilename(), fileInputPort.getTargetLocation(file));
+          System.out.println("Executando");
 
-      }
-    }, trigger);
+          jobOutputPort.run(file.getOriginalFilename(), fileInputPort.getTargetLocation(file));
+
+        }
+      }, trigger);
+
+    } catch (InputPortException | EntityException | OutputPortException exception) {
+
+      throw exception;
+
+    } catch (Exception exception) {
+
+      throw new UseCaseException("Ocorreu um erro ao tentar realizar o agendamento de inicialização do job");
+
+    }
 
   }
 

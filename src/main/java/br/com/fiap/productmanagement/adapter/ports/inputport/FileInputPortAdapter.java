@@ -1,5 +1,6 @@
 package br.com.fiap.productmanagement.adapter.ports.inputport;
 
+import br.com.fiap.productmanagement.ports.exception.InputPortException;
 import br.com.fiap.productmanagement.ports.inputport.FileInputPort;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -7,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 public class FileInputPortAdapter implements FileInputPort {
 
@@ -19,18 +21,34 @@ public class FileInputPortAdapter implements FileInputPort {
   }
 
   @Override
-  public void upload(MultipartFile file) throws IOException {
+  public void upload(MultipartFile file) throws InputPortException {
 
-    file.transferTo(getTargetLocation(file));
+    try {
+
+      file.transferTo(getTargetLocation(file));
+
+    } catch (IOException e) {
+
+      throw new InputPortException("Ocorreu um erro ao tentar fazer upload do arquivo");
+
+    }
 
   }
 
   @Override
-  public Path getTargetLocation(MultipartFile file) {
+  public Path getTargetLocation(MultipartFile file) throws InputPortException {
 
-    var fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    try {
 
-    return filePath.resolve(fileName);
+      var fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+
+      return filePath.resolve(fileName);
+
+    } catch (Exception exception) {
+
+      throw new InputPortException("Ocorreu um erro ao tentar localizar o endereço do arquivo");
+
+    }
 
   }
 

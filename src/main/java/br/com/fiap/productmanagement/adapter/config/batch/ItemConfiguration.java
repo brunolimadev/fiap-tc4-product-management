@@ -1,7 +1,7 @@
 package br.com.fiap.productmanagement.adapter.config.batch;
 
 import br.com.fiap.productmanagement.domain.entities.ProductEntity;
-import br.com.fiap.productmanagement.domain.usecase.ProductProcessorUseCase;
+import br.com.fiap.productmanagement.domain.usecase.impl.PrepareProductToProcessUseCaseImpl;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
@@ -78,7 +78,7 @@ public class ItemConfiguration {
   @Bean
   public ItemProcessor<ProductEntity, ProductEntity> itemProcessor() {
 
-    return new ProductProcessorUseCase();
+    return new PrepareProductToProcessUseCaseImpl();
 
   }
 

@@ -1,11 +1,11 @@
-package br.com.fiap.productmanagement.domain.usecase;
+package br.com.fiap.productmanagement.domain.usecase.impl;
 
 import br.com.fiap.productmanagement.domain.entities.ProductEntity;
-import org.springframework.batch.item.ItemProcessor;
+import br.com.fiap.productmanagement.domain.usecase.PrepareProductToProcessUseCase;
 
 import java.time.LocalDateTime;
 
-public class ProductProcessorUseCase implements ItemProcessor<ProductEntity, ProductEntity> {
+public class PrepareProductToProcessUseCaseImpl implements PrepareProductToProcessUseCase {
 
   @Override
   public ProductEntity process(ProductEntity item) throws Exception {

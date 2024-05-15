@@ -1,5 +1,6 @@
 package br.com.fiap.productmanagement.adapter.ports.outputport;
 
+import br.com.fiap.productmanagement.ports.exception.OutputPortException;
 import br.com.fiap.productmanagement.ports.outputport.JobOutputPort;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionException;
@@ -24,23 +25,31 @@ public class JobOutputPortAdapter implements JobOutputPort {
   }
 
   @Override
-  public void run(String fileName, Path targetLocation) throws JobExecutionException {
+  public void run(String fileName, Path targetLocation) throws OutputPortException {
 
-    var jobParameters = new JobParametersBuilder()
-            .addJobParameter(
-                    "product",
-                    fileName,
-                    String.class,
-                    true
-            )
-            .addJobParameter(
-                    "productFile",
-                    "file:" + targetLocation,
-                    String.class
-            )
-            .toJobParameters();
+    try {
 
-    jobLauncher.run(job, jobParameters);
+      var jobParameters = new JobParametersBuilder()
+              .addJobParameter(
+                      "product",
+                      fileName,
+                      String.class,
+                      true
+              )
+              .addJobParameter(
+                      "productFile",
+                      "file:" + targetLocation,
+                      String.class
+              )
+              .toJobParameters();
+
+      jobLauncher.run(job, jobParameters);
+
+    } catch (JobExecutionException jobExecutionException) {
+
+      throw new OutputPortException("Ocorreu um erro ao tentar iniciar o job");
+
+    }
 
   }
 

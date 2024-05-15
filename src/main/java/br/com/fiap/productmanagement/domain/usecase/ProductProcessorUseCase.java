@@ -1,5 +1,6 @@
-package br.com.fiap.productmanagement;
+package br.com.fiap.productmanagement.domain.usecase;
 
+import br.com.fiap.productmanagement.domain.entities.ProductEntity;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.time.LocalDateTime;

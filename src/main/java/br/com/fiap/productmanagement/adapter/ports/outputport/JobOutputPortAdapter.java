@@ -1,22 +1,20 @@
-package br.com.fiap.productmanagement;
+package br.com.fiap.productmanagement.adapter.ports.outputport;
 
+import br.com.fiap.productmanagement.ports.outputport.JobOutputPort;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionException;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
 
-@Component
-public class InitJobUseCase {
+public class JobOutputPortAdapter implements JobOutputPort {
 
   private final JobLauncher jobLauncher;
   private final Job job;
 
-  public InitJobUseCase(
-          @Qualifier("jobLauncherAsync") JobLauncher jobLauncher,
+  public JobOutputPortAdapter(
+          JobLauncher jobLauncher,
           Job job
   ) {
 
@@ -25,10 +23,8 @@ public class InitJobUseCase {
 
   }
 
-  public void run(
-          String fileName,
-          Path targetLocation
-  ) throws JobExecutionException {
+  @Override
+  public void run(String fileName, Path targetLocation) throws JobExecutionException {
 
     var jobParameters = new JobParametersBuilder()
             .addJobParameter(

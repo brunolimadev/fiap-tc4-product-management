@@ -1,4 +1,4 @@
-package br.com.fiap.productmanagement;
+package br.com.fiap.productmanagement.domain.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

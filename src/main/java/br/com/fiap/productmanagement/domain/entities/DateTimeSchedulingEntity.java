@@ -1,8 +1,8 @@
-package br.com.fiap.productmanagement.domain.usecase;
+package br.com.fiap.productmanagement.domain.entities;
 
 import java.time.LocalDateTime;
 
-public class PrepareDateTimeSchedulingUseCase {
+public class DateTimeSchedulingEntity {
 
   private LocalDateTime dateTime;
 

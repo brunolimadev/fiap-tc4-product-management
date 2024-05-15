@@ -1,5 +1,6 @@
 package br.com.fiap.productmanagement.domain.usecase;
 
+import br.com.fiap.productmanagement.domain.entities.DateTimeSchedulingEntity;
 import br.com.fiap.productmanagement.ports.inputport.FileInputPort;
 import br.com.fiap.productmanagement.ports.outputport.JobOutputPort;
 import lombok.SneakyThrows;
@@ -30,10 +31,10 @@ public class SchedulingJobUseCase {
 
     fileInputPort.upload(file);
 
-    PrepareDateTimeSchedulingUseCase prepareDateTimeSchedulingUseCase = new PrepareDateTimeSchedulingUseCase();
-    prepareDateTimeSchedulingUseCase.setSchedulingDateTime(dateTime);
+    DateTimeSchedulingEntity dateTimeSchedulingEntity = new DateTimeSchedulingEntity();
+    dateTimeSchedulingEntity.setSchedulingDateTime(dateTime);
 
-    CronTrigger trigger = new CronTrigger(prepareDateTimeSchedulingUseCase.getSchedulingDatetimeFormatted());
+    CronTrigger trigger = new CronTrigger(dateTimeSchedulingEntity.getSchedulingDatetimeFormatted());
     TaskScheduler taskScheduler = new SimpleAsyncTaskScheduler();
 
     taskScheduler.schedule(new Runnable() {

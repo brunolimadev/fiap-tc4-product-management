@@ -30,4 +30,7 @@ public class ProductModel {
   @Column(name = "create_datetime")
   private LocalDateTime createDateTime;
 
+  @Column(name = "update_datetime")
+  private LocalDateTime updateDateTime;
+
 }

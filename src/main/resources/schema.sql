@@ -6,6 +6,7 @@ CREATE TABLE products (
     description VARCHAR(255),
     price NUMERIC (10, 2),
     store_quantity INT,
-    create_datetime TIMESTAMP
+    create_datetime TIMESTAMP,
+    update_datetime TIMESTAMP
 
 );

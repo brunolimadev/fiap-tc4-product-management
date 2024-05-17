@@ -8,4 +8,10 @@ public interface ProductManagementOutputPort {
 
   List<ProductModel> getProducts();
 
+  ProductModel getProduct(Long id);
+
+  ProductModel removeProduct(Long id);
+
+  ProductModel updateProduct(Long id, ProductModel productModel);
+
 }

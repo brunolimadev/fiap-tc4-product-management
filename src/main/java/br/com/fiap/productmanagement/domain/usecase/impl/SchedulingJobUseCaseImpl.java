@@ -8,7 +8,6 @@ import br.com.fiap.productmanagement.ports.exception.InputPortException;
 import br.com.fiap.productmanagement.ports.exception.OutputPortException;
 import br.com.fiap.productmanagement.ports.inputport.FileInputPort;
 import br.com.fiap.productmanagement.ports.outputport.JobOutputPort;
-import lombok.SneakyThrows;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.SimpleAsyncTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
@@ -43,16 +42,12 @@ public class SchedulingJobUseCaseImpl implements SchedulingJobUseCase {
       CronTrigger trigger = new CronTrigger(dateTimeSchedulingEntity.getSchedulingDatetimeFormatted());
       TaskScheduler taskScheduler = new SimpleAsyncTaskScheduler();
 
-      taskScheduler.schedule(new Runnable() {
-        @SneakyThrows
-        @Override
-        public void run() {
+      taskScheduler.schedule(() -> {
 
           System.out.println("Executando");
 
           jobOutputPort.run(file.getOriginalFilename(), fileInputPort.getTargetLocation(file));
 
-        }
       }, trigger);
 
     } catch (InputPortException | EntityException | OutputPortException exception) {

@@ -67,7 +67,7 @@ public class ItemConfiguration {
             .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
             .dataSource(dataSource)
             .sql("""
-                    INSERT INTO products (description, price, storeQuantity, createDateTime)
+                    INSERT INTO products (description, price, store_quantity, create_datetime)
                     VALUES (:description, :price, :storeQuantity, :createDateTime)
                  """
             )

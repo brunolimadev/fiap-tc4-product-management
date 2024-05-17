@@ -1,17 +1,18 @@
 package br.com.fiap.productmanagement.ports.outputport;
 
-import br.com.fiap.productmanagement.adapter.repositories.model.ProductModel;
+import br.com.fiap.productmanagement.domain.entities.ProductEntity;
+import br.com.fiap.productmanagement.ports.exception.OutputPortException;
 
 import java.util.List;
 
 public interface ProductManagementOutputPort {
 
-  List<ProductModel> getProducts();
+  List<ProductEntity> getProducts() throws OutputPortException;
 
-  ProductModel getProduct(Long id);
+  ProductEntity getProduct(Long id) throws OutputPortException;
 
-  ProductModel removeProduct(Long id);
+  ProductEntity removeProduct(Long id) throws OutputPortException;
 
-  ProductModel updateProduct(Long id, ProductModel productModel);
+  ProductEntity updateProduct(Long id, ProductEntity productEntity) throws OutputPortException;
 
 }

@@ -1,6 +1,6 @@
 package br.com.fiap.productmanagement.controller;
 
-import br.com.fiap.productmanagement.domain.entities.ErrorEntity;
+import br.com.fiap.productmanagement.domain.entities.MessageEntity;
 import br.com.fiap.productmanagement.domain.exception.EntityException;
 import br.com.fiap.productmanagement.domain.exception.UseCaseException;
 import br.com.fiap.productmanagement.ports.exception.InputPortException;
@@ -18,12 +18,12 @@ public class ProductControllerAdvice {
                   UseCaseException.class,
           }
   )
-  public ResponseEntity<ErrorEntity> handleBadRequest(RuntimeException exception) {
+  public ResponseEntity<MessageEntity> handleBadRequest(RuntimeException exception) {
 
     return ResponseEntity
             .badRequest()
             .body(
-                    ErrorEntity
+                    MessageEntity
                             .builder()
                               .title("Erro na solicitação")
                               .message(exception.getMessage())
@@ -38,12 +38,12 @@ public class ProductControllerAdvice {
                   OutputPortException.class
           }
   )
-  public ResponseEntity<ErrorEntity> handleUnProcessableEntity(RuntimeException exception) {
+  public ResponseEntity<MessageEntity> handleUnProcessableEntity(RuntimeException exception) {
 
     return ResponseEntity
             .unprocessableEntity()
             .body(
-                    ErrorEntity
+                    MessageEntity
                             .builder()
                             .title("Erro de processamento")
                             .message(exception.getMessage())

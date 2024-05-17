@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Builder
-public class ErrorEntity {
+public class MessageEntity {
 
   private String title;
   private String message;

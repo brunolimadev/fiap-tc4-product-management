@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("product")
+@RequestMapping("products")
 public class ProductController {
 
   private final SchedulingJobUseCase schedulingJobUseCase;
@@ -48,8 +48,8 @@ public class ProductController {
 
   }
 
-  @GetMapping(value = "{id}")
-  public ResponseEntity<Object> getProduct(@PathVariable("id") Long id) {
+  @GetMapping(value = "{product_id}")
+  public ResponseEntity<Object> getProduct(@PathVariable("product_id") Long id) {
 
     return  ResponseEntity
             .status(HttpStatus.OK)
@@ -57,8 +57,8 @@ public class ProductController {
 
   }
 
-  @DeleteMapping(value = "{id}")
-  public ResponseEntity<Object> removeProduct(@PathVariable("id") Long id) {
+  @DeleteMapping(value = "{product_id}")
+  public ResponseEntity<Object> removeProduct(@PathVariable("product_id") Long id) {
 
     return  ResponseEntity
             .status(HttpStatus.OK)
@@ -66,9 +66,9 @@ public class ProductController {
 
   }
 
-  @PutMapping(value = "/{id}/stocks")
+  @PutMapping(value = "/{product_id}/stocks")
   public ResponseEntity<Object> updateProduct(
-          @PathVariable("id") Long id,
+          @PathVariable("product_id") Long id,
           @RequestBody ProductModel productModel
   ) {
 

@@ -1,6 +1,6 @@
 package br.com.fiap.productmanagement.controller;
 
-import br.com.fiap.productmanagement.adapter.repositories.model.ProductModel;
+import br.com.fiap.productmanagement.domain.entities.ProductEntity;
 import br.com.fiap.productmanagement.domain.exception.UseCaseException;
 import br.com.fiap.productmanagement.domain.usecase.SchedulingJobUseCase;
 import br.com.fiap.productmanagement.ports.outputport.ProductManagementOutputPort;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("products")
@@ -40,7 +41,7 @@ public class ProductController {
   }
 
   @GetMapping
-  public ResponseEntity<Object> getAllProducts() {
+  public ResponseEntity<List<ProductEntity>> getAllProducts() {
 
     return  ResponseEntity
             .status(HttpStatus.OK)
@@ -49,7 +50,7 @@ public class ProductController {
   }
 
   @GetMapping(value = "{product_id}")
-  public ResponseEntity<Object> getProduct(@PathVariable("product_id") Long id) {
+  public ResponseEntity<ProductEntity> getProduct(@PathVariable("product_id") Long id) {
 
     return  ResponseEntity
             .status(HttpStatus.OK)
@@ -58,7 +59,7 @@ public class ProductController {
   }
 
   @DeleteMapping(value = "{product_id}")
-  public ResponseEntity<Object> removeProduct(@PathVariable("product_id") Long id) {
+  public ResponseEntity<ProductEntity> removeProduct(@PathVariable("product_id") Long id) {
 
     return  ResponseEntity
             .status(HttpStatus.OK)
@@ -67,14 +68,14 @@ public class ProductController {
   }
 
   @PutMapping(value = "/{product_id}/stocks")
-  public ResponseEntity<Object> updateProduct(
+  public ResponseEntity<ProductEntity> updateProduct(
           @PathVariable("product_id") Long id,
-          @RequestBody ProductModel productModel
+          @RequestBody ProductEntity productEntity
   ) {
 
     return  ResponseEntity
             .status(HttpStatus.OK)
-            .body(productManagementOutputPort.updateProduct(id, productModel));
+            .body(productManagementOutputPort.updateProduct(id, productEntity));
 
   }
 

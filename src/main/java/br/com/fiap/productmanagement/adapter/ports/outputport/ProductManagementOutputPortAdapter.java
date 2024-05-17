@@ -1,8 +1,10 @@
 package br.com.fiap.productmanagement.adapter.ports.outputport;
 
 import br.com.fiap.productmanagement.adapter.repositories.ProductRepository;
-import br.com.fiap.productmanagement.adapter.repositories.model.ProductModel;
+import br.com.fiap.productmanagement.domain.entities.ProductEntity;
+import br.com.fiap.productmanagement.ports.exception.OutputPortException;
 import br.com.fiap.productmanagement.ports.outputport.ProductManagementOutputPort;
+import br.com.fiap.productmanagement.utils.ConvertJpaModelToDomainEntityUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,41 +20,76 @@ public class ProductManagementOutputPortAdapter implements ProductManagementOutp
   }
 
   @Override
-  public List<ProductModel> getProducts() {
+  public List<ProductEntity> getProducts() throws OutputPortException {
 
-    return productRepository.findAll();
+    try {
 
-  }
+      return productRepository.findAll()
+              .stream()
+              .map(ConvertJpaModelToDomainEntityUtils::convert)
+              .toList();
 
-  @Override
-  public ProductModel getProduct(Long id) {
+    } catch (Exception exception) {
 
-    return productRepository.findById(id).orElseThrow();
+      throw new OutputPortException("Ocorreu um erro ao tentar recuperar os produtos");
 
-  }
-
-  @Override
-  public ProductModel removeProduct(Long id) {
-
-    var product = productRepository.findById(id).orElseThrow();
-
-    productRepository.deleteById(product.getId());
-
-    return product;
+    }
 
   }
 
   @Override
-  public ProductModel updateProduct(Long id, ProductModel productModel) {
+  public ProductEntity getProduct(Long id) throws OutputPortException {
 
-    var product = productRepository.findById(id).orElseThrow();
+    try {
 
-    product.setDescription(productModel.getDescription());
-    product.setPrice(productModel.getPrice());
-    product.setStoreQuantity(productModel.getStoreQuantity());
-    product.setUpdateDateTime(LocalDateTime.now());
+      return ConvertJpaModelToDomainEntityUtils.convert(productRepository.findById(id).orElseThrow());
 
-    return productRepository.save(product);
+    } catch (Exception exception) {
+
+      throw new OutputPortException("Ocorreu um erro ao tentar recuperar o produto");
+
+    }
+
+  }
+
+  @Override
+  public ProductEntity removeProduct(Long id) throws OutputPortException {
+
+    try {
+
+      var product = productRepository.findById(id).orElseThrow();
+
+      productRepository.deleteById(product.getId());
+
+      return ConvertJpaModelToDomainEntityUtils.convert(product);
+
+    } catch (Exception exception) {
+
+      throw new OutputPortException("Ocorreu um erro ao tentar remover o produto");
+
+    }
+
+  }
+
+  @Override
+  public ProductEntity updateProduct(Long id, ProductEntity productEntity) throws OutputPortException {
+
+    try {
+
+      var product = productRepository.findById(id).orElseThrow();
+
+      product.setDescription(productEntity.getDescription());
+      product.setPrice(productEntity.getPrice());
+      product.setStoreQuantity(productEntity.getStoreQuantity());
+      product.setUpdateDateTime(LocalDateTime.now());
+
+      return ConvertJpaModelToDomainEntityUtils.convert(productRepository.save(product));
+
+    } catch (Exception exception) {
+
+      throw new OutputPortException("Ocorreu um erro ao tentar atualizar o produto");
+
+    }
 
   }
 

@@ -1,5 +1,6 @@
 package br.com.fiap.productmanagement.controller;
 
+import br.com.fiap.productmanagement.domain.entities.MessageEntity;
 import br.com.fiap.productmanagement.domain.entities.ProductEntity;
 import br.com.fiap.productmanagement.domain.exception.UseCaseException;
 import br.com.fiap.productmanagement.domain.usecase.SchedulingJobUseCase;
@@ -30,13 +31,20 @@ public class ProductController {
   }
 
   @PostMapping
-  public String processProduct(
+  public ResponseEntity<MessageEntity> processProduct(
           @RequestParam("file") MultipartFile file,
           @RequestParam(required = false) LocalDateTime date) throws UseCaseException {
 
     schedulingJobUseCase.start(file, date);
 
-    return "Produto processado com sucesso";
+    return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(
+                    MessageEntity
+                            .builder()
+                              .title("Solicitação recebida")
+                              .message("Processando produto")
+                            .build());
 
   }
 

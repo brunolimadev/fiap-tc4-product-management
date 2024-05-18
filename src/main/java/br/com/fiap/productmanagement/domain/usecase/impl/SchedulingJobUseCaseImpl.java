@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
+import static br.com.fiap.productmanagement.utils.MessageEnumUtils.SCHEDULING_JOB_USE_CASE_EXCEPTION;
+
 public class SchedulingJobUseCaseImpl implements SchedulingJobUseCase {
 
   private final FileInputPort fileInputPort;
@@ -56,7 +58,7 @@ public class SchedulingJobUseCaseImpl implements SchedulingJobUseCase {
 
     } catch (Exception exception) {
 
-      throw new UseCaseException("Ocorreu um erro ao tentar realizar o agendamento de inicialização do job");
+      throw new UseCaseException(SCHEDULING_JOB_USE_CASE_EXCEPTION.getMessage());
 
     }
 

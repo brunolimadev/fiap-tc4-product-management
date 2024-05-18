@@ -50,7 +50,7 @@ public class ProductController {
           description = "Returns a message signaling that the file was received successfully"
   )
   @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-  public ResponseEntity<MessageEntity> processProduct(
+  public ResponseEntity<MessageEntity> processProducts(
           @RequestParam("file") MultipartFile file,
           @RequestParam(required = false) LocalDateTime date) throws UseCaseException {
 

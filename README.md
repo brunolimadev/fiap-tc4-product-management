@@ -57,12 +57,12 @@
 
 ## 📋 Swagger
 
-- http://localhost:8080/swagger-ui/index.html#/
+- http://localhost:8081/swagger-ui/index.html#/
 
 
 
 ## 😎 Collection para testes
-- [fiap-product-manager.postman_collection.zip](https://github.com/brunolimadev/fiap-tc4-product-management/blob/develop/fiap-product-manager.postman_collection.json)
+- [fiap-product-manager.postman_collection.zip](https://github.com/brunolimadev/fiap-tc4-product-management/blob/develop/fiap-product-manager.postman_collection.zip?raw=true)
 
 
 ## ⭐ Squad

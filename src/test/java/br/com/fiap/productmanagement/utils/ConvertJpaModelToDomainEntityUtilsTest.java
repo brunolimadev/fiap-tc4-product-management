@@ -17,11 +17,17 @@ class ConvertJpaModelToDomainEntityUtilsTest {
     var expectProductEntity = ProductEntityMock.get();
 
     //Act
-    var productEntity = ConvertJpaModelToDomainEntityUtils.convert(productModel);
+    var productEntityConverted = ConvertJpaModelToDomainEntityUtils.convert(productModel);
 
     //Assert
-    assertThat(productEntity)
+    assertThat(productEntityConverted)
             .isInstanceOf(ProductEntity.class);
+
+    assertThat(productEntityConverted.getId()).isEqualTo(expectProductEntity.getId());
+    assertThat(productEntityConverted.getDescription()).isEqualTo(expectProductEntity.getDescription());
+    assertThat(productEntityConverted.getStoreQuantity()).isEqualTo(expectProductEntity.getStoreQuantity());
+    assertThat(productEntityConverted.getCreateDateTime()).isEqualTo(expectProductEntity.getCreateDateTime());
+    assertThat(productEntityConverted.getUpdateDateTime()).isEqualTo(expectProductEntity.getUpdateDateTime());
 
   }
 

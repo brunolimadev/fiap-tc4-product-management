@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import static br.com.fiap.productmanagement.utils.MessageEnumUtils.*;
+
 @ControllerAdvice
 public class ProductControllerAdvice {
 
@@ -25,7 +27,7 @@ public class ProductControllerAdvice {
             .body(
                     MessageEntity
                             .builder()
-                              .title("Erro na solicitação")
+                              .title(TIME_DOMAIN_EXCEPTION)
                               .message(exception.getMessage())
                             .build()
             );
@@ -45,7 +47,7 @@ public class ProductControllerAdvice {
             .body(
                     MessageEntity
                             .builder()
-                            .title("Erro de processamento")
+                            .title(TITLE_PORTS_EXCEPTION)
                             .message(exception.getMessage())
                             .build()
             );

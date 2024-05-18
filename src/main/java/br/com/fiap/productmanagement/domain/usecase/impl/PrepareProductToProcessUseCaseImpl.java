@@ -7,6 +7,8 @@ import lombok.NonNull;
 
 import java.time.LocalDateTime;
 
+import static br.com.fiap.productmanagement.utils.MessageEnumUtils.PREPARE_PRODUCT_TO_PROCESS_USE_CASE_EXCEPTION;
+
 public class PrepareProductToProcessUseCaseImpl implements PrepareProductToProcessUseCase {
 
   @Override
@@ -21,7 +23,7 @@ public class PrepareProductToProcessUseCaseImpl implements PrepareProductToProce
 
     } catch (Exception exception) {
 
-      throw new UseCaseException("Ocorreu um erro ao tentar preparar produto para processamento");
+      throw new UseCaseException(PREPARE_PRODUCT_TO_PROCESS_USE_CASE_EXCEPTION.getMessage());
 
     }
 

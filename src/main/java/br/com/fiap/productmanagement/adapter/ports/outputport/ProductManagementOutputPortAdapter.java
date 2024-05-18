@@ -9,6 +9,8 @@ import br.com.fiap.productmanagement.utils.ConvertJpaModelToDomainEntityUtils;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static br.com.fiap.productmanagement.utils.MessageEnumUtils.*;
+
 public class ProductManagementOutputPortAdapter implements ProductManagementOutputPort {
 
   private final ProductRepository productRepository;
@@ -31,7 +33,7 @@ public class ProductManagementOutputPortAdapter implements ProductManagementOutp
 
     } catch (Exception exception) {
 
-      throw new OutputPortException("Ocorreu um erro ao tentar recuperar os produtos");
+      throw new OutputPortException(PRODUCT_MANAGEMENT_GET_PRODUCTS_OUTPUT_PORT_EXCEPTION.getMessage());
 
     }
 
@@ -46,7 +48,7 @@ public class ProductManagementOutputPortAdapter implements ProductManagementOutp
 
     } catch (Exception exception) {
 
-      throw new OutputPortException("Ocorreu um erro ao tentar recuperar o produto");
+      throw new OutputPortException(PRODUCT_MANAGEMENT_GET_PRODUCT_OUTPUT_PORT_EXCEPTION.getMessage());
 
     }
 
@@ -65,7 +67,7 @@ public class ProductManagementOutputPortAdapter implements ProductManagementOutp
 
     } catch (Exception exception) {
 
-      throw new OutputPortException("Ocorreu um erro ao tentar remover o produto");
+      throw new OutputPortException(PRODUCT_MANAGEMENT_REMOVE_PRODUCT_OUTPUT_PORT_EXCEPTION.getMessage());
 
     }
 
@@ -87,7 +89,7 @@ public class ProductManagementOutputPortAdapter implements ProductManagementOutp
 
     } catch (Exception exception) {
 
-      throw new OutputPortException("Ocorreu um erro ao tentar atualizar o produto");
+      throw new OutputPortException(PRODUCT_MANAGEMENT_UPDATE_PRODUCT_OUTPUT_PORT_EXCEPTION.getMessage());
 
     }
 

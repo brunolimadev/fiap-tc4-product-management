@@ -9,6 +9,8 @@ import org.springframework.batch.core.launch.JobLauncher;
 
 import java.nio.file.Path;
 
+import static br.com.fiap.productmanagement.utils.MessageEnumUtils.JOB_OUTPUT_PORT_EXCEPTION;
+
 public class JobOutputPortAdapter implements JobOutputPort {
 
   private final JobLauncher jobLauncher;
@@ -47,7 +49,7 @@ public class JobOutputPortAdapter implements JobOutputPort {
 
     } catch (JobExecutionException jobExecutionException) {
 
-      throw new OutputPortException("Ocorreu um erro ao tentar iniciar o job");
+      throw new OutputPortException(JOB_OUTPUT_PORT_EXCEPTION.getMessage());
 
     }
 

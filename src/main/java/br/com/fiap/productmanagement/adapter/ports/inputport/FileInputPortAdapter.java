@@ -10,6 +10,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+import static br.com.fiap.productmanagement.utils.MessageEnumUtils.FILE_GET_TARGET_LOCATION_INPUT_PORT_EXCEPTION;
+import static br.com.fiap.productmanagement.utils.MessageEnumUtils.FILE_UPLOAD_INPUT_PORT_EXCEPTION;
+
 public class FileInputPortAdapter implements FileInputPort {
 
   private final Path filePath;
@@ -29,7 +32,7 @@ public class FileInputPortAdapter implements FileInputPort {
 
     } catch (IOException e) {
 
-      throw new InputPortException("Ocorreu um erro ao tentar fazer upload do arquivo");
+      throw new InputPortException(FILE_UPLOAD_INPUT_PORT_EXCEPTION.getMessage());
 
     }
 
@@ -46,7 +49,7 @@ public class FileInputPortAdapter implements FileInputPort {
 
     } catch (Exception exception) {
 
-      throw new InputPortException("Ocorreu um erro ao tentar localizar o endereço do arquivo");
+      throw new InputPortException(FILE_GET_TARGET_LOCATION_INPUT_PORT_EXCEPTION.getMessage());
 
     }
 

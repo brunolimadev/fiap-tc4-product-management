@@ -61,8 +61,9 @@
 
 
 
-## 😎 Collection para testes
-- [fiap-product-manager.postman_collection.zip](https://github.com/brunolimadev/fiap-tc4-product-management/blob/develop/fiap-product-manager.postman_collection.zip?raw=true)
+## 😎 Collection e arquivo .csv para testes
+- [fiap-product-manager.postman_collection.zip](https://github.com/brunolimadev/fiap-tc4-product-management/blob/develop/api-test-files/fiap-product-manager.postman_collection.zip?raw=true)
+- [example-file-control-products.zip](https://github.com/brunolimadev/fiap-tc4-product-management/blob/develop/api-test-files/example-file-control-products.zip?raw=true)
 
 
 ## ⭐ Squad

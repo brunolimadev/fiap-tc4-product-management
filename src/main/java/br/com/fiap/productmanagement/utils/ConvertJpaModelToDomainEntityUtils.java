@@ -2,14 +2,10 @@ package br.com.fiap.productmanagement.utils;
 
 import br.com.fiap.productmanagement.adapter.repositories.model.ProductModel;
 import br.com.fiap.productmanagement.domain.entities.ProductEntity;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass
 public class ConvertJpaModelToDomainEntityUtils {
-
-  private ConvertJpaModelToDomainEntityUtils() {
-
-    throw new IllegalStateException("Ocorreu um erro ao instanciar a classe");
-
-  }
 
   public static ProductEntity convert(ProductModel productModel) {
 
